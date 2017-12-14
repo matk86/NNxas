@@ -1,0 +1,14 @@
+log $${log_file}
+units real
+atom_style full
+
+read_data $${data_file}
+
+pair_style lj/cut 15
+pair_coeff * * 1 1
+
+compute sna all sna/atom $${rcutfac} $${rfac0} $${twojmax} $${cutoff} $${weight} diagonal 3 rmin0 0.0
+
+dump 1 all custom 1 $${dump_file} id type x y z c_sna[*]
+
+run 0
